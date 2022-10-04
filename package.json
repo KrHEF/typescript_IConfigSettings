@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "bowser": "^2.11.0"
+    "@types/lodash": "^4.14.186",
+    "bowser": "^2.11.0",
+    "lodash": "^4.17.21"
   }
 }
