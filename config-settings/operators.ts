@@ -11,7 +11,7 @@ import {
     TBrowser,
     TLanguage,
     TCountry,
-} from '../index';
+} from './types';
 
 function createSetting<T>(
     config: IConfigSettings<T>,
@@ -32,12 +32,25 @@ export function addConfig<T>(
     const result: IConfigSettings<T> = {};
 
     let currentConfig: IConfigSettings<T> = result;
-    currentConfig = createSetting(currentConfig, settings.env);
-    currentConfig = createSetting(currentConfig, settings.platform);
-    currentConfig = createSetting(currentConfig, settings.os);
-    currentConfig = createSetting(currentConfig, settings.browser);
-    currentConfig = createSetting(currentConfig, settings.lang);
-    currentConfig = createSetting(currentConfig, settings.country);
+    let currentConfigs: IConfigSettings<T>[] = [];
+
+    if (Array.isArray(settings.e)) {
+        if (currentConfigs.length) {
+            
+        } else {
+            currentConfigs.push(...settings.e.map((e: TEnvironment) => {
+                return createSetting({}, e);
+            }));
+        }
+    } else {
+        currentConfig = createSetting(currentConfig, settings.e);
+    }
+
+    currentConfig = createSetting(currentConfig, settings.p);
+    currentConfig = createSetting(currentConfig, settings.o);
+    currentConfig = createSetting(currentConfig, settings.b);
+    currentConfig = createSetting(currentConfig, settings.l);
+    currentConfig = createSetting(currentConfig, settings.c);
     _merge(currentConfig, config);
 
     return result;

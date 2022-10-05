@@ -24,7 +24,7 @@ interface IParams {
 export const param: IConfigSettings<IParams> = getConfig(
     setConfig({param1: 0}),
     addConfig({}, {param1: 1}),
-    addConfig({e: 'prod'}, {param1: 2}),
+    addConfig({e: ['prod', 'test']}, {param1: 2}),
     addConfig({e: 'prod', p: 'mobile'}, {param1: 3}),
 );
 
