@@ -1,13 +1,31 @@
-export const COUNTRIES_MAP = {
-    rus: 'Russia',
-    usa: 'United states of America',
-    est: 'Estonia',
-};
+export const ENVIRONMENT_MAP = {
+    dev: 'Develop',
+    qa: 'QA ',
+    test: 'Test',
+    prod: 'Production',
+}
 
-export const LANGUAGES_MAP = {
-    ru: 'Russian',
-    en: 'English',
-    'pt-br': 'Portuguese'
+export const PLATFORMS_MAP = {
+    desktop: "desktop",
+    mobile: "mobile",
+    tablet: "tablet",
+    tv: "tv",
+}
+
+export const OSES_MAP = {
+    Android: "Android",
+    Bada: "Bada",
+    BlackBerry: "BlackBerry",
+    ChromeOS: "Chrome OS",
+    Linux: "Linux",
+    MacOS: "macOS",
+    PlayStation4: "PlayStation 4",
+    Roku: "Roku",
+    Tizen: "Tizen",
+    WebOS: "WebOS",
+    Windows: "Windows",
+    WindowsPhone: "Windows Phone",
+    iOS: "iOS",
 };
 
 export const BROWSERS_MAP = {
@@ -51,98 +69,57 @@ export const BROWSERS_MAP = {
     yandex: "Yandex Browser"    ,
 };
 
-export const OSES_MAP = {
-    Android: "Android",
-    Bada: "Bada",
-    BlackBerry: "BlackBerry",
-    ChromeOS: "Chrome OS",
-    Linux: "Linux",
-    MacOS: "macOS",
-    PlayStation4: "PlayStation 4",
-    Roku: "Roku",
-    Tizen: "Tizen",
-    WebOS: "WebOS",
-    Windows: "Windows",
-    WindowsPhone: "Windows Phone",
-    iOS: "iOS",
+export const LANGUAGES_MAP = {
+    ru: 'Russian',
+    en: 'English',
+    'pt-br': 'Portuguese'
 };
 
-const PLATFORMS_MAP = {
-    desktop: "desktop",
-    mobile: "mobile",
-    tablet: "tablet",
-    tv: "tv",
+export const COUNTRIES_MAP = {
+    rus: 'Russia',
+    usa: 'United states of America',
+    est: 'Estonia',
+};
+
+export type TEnvironment = keyof typeof ENVIRONMENT_MAP;
+export type TPlatform = keyof typeof PLATFORMS_MAP;
+export type TOs =  Lowercase<keyof typeof OSES_MAP>;
+export type TBrowser =  keyof typeof BROWSERS_MAP;
+export type TLanguage = keyof typeof LANGUAGES_MAP;
+export type TCountry = keyof typeof COUNTRIES_MAP;
+
+export type TNoEnvironment = `!${TEnvironment}`;
+export type TNoPlatform = `!${TPlatform}`;
+export type TNoOs = `!${TOs}`;
+export type TNoBrowser = `!${TBrowser}`;
+export type TNoLanguage = `!${TLanguage}`;
+export type TNoCountry = `!${TCountry}`;
+
+export type IConfig<T> = 
+    & Partial<T>
+    & IConfigSettings<T>;
+
+export interface IConfigSettings<T> {
+    settings?: IConfigSetting<T>[];
 }
 
-export type TCountry = keyof typeof COUNTRIES_MAP;
-export type TLanguage = keyof typeof LANGUAGES_MAP;
-export type TBrowser =  keyof typeof BROWSERS_MAP;
-export type TOs =  keyof typeof OSES_MAP;
-export type TPlatform = keyof typeof PLATFORMS_MAP;
-export type TEnvironment = 'dev' | 'qa' | 'test' | 'prod';
+export interface IConfigSetting<T> {
+    setting: Partial<ISetting>;
+    weight?: number;
+    config: Partial<T>;
+}
 
-export type ICountrySettings<T> = 
-    & Partial<Record<TCountry, Partial<T>>> 
-    & Partial<T>;
-
-export type ILanguageSettings<T> =
-    & Partial<Record<TLanguage, ICountrySettings<T>>>
-    & Partial<Record<TCountry, Partial<T>>> 
-    & Partial<T>;
-
-export type IBrowserSettings<T> = 
-    & Partial<Record<TBrowser, ILanguageSettings<T>>>
-    & Partial<Record<TLanguage, ICountrySettings<T>>>
-    & Partial<Record<TCountry, Partial<T>>> 
-    & Partial<T>;
-
-export type IOsSettings<T> = 
-    & Partial<Record<TOs, IBrowserSettings<T>>>
-    & Partial<Record<TBrowser, ILanguageSettings<T>>>
-    & Partial<Record<TLanguage, ICountrySettings<T>>>
-    & Partial<Record<TCountry, Partial<T>>> 
-    & Partial<T>;
-
-export type IPlatformSettings<T> =
-    & Partial<Record<TPlatform, IOsSettings<T>>> 
-    & Partial<Record<TOs, IBrowserSettings<T>>>
-    & Partial<Record<TBrowser, ILanguageSettings<T>>>
-    & Partial<Record<TLanguage, ICountrySettings<T>>>
-    & Partial<Record<TCountry, Partial<T>>> 
-    & Partial<T>;
-
-export type IEnvironmentSettings<T> =
-    & Partial<Record<TEnvironment, IPlatformSettings<T>>>     
-    & Partial<Record<TPlatform, IOsSettings<T>>> 
-    & Partial<Record<TOs, IBrowserSettings<T>>>
-    & Partial<Record<TBrowser, ILanguageSettings<T>>>
-    & Partial<Record<TLanguage, ICountrySettings<T>>>
-    & Partial<Record<TCountry, Partial<T>>> 
-    & Partial<T>;
-
-/**
- * Вложенность:\
- * ├ Environment\
- * ├ Platform\
- * ├ Os\
- * ├ Browser\
- * ├ Language\
- * ├ Country\
- * └ Params
- */
-export type IConfigSettings<T> = IEnvironmentSettings<T>;
-
-export interface ISettings {
+export interface ISetting {
     /** Environment */
-    e: TEnvironment | TEnvironment[],
+    e: TEnvironment | TEnvironment[] | TNoEnvironment | TNoEnvironment[];
     /** Platform */
-    p: TPlatform | TPlatform[],
+    p: TPlatform | TPlatform[] | TNoPlatform | TNoPlatform[];
     /** OS */
-    o: TOs | TOs[],
+    o: TOs | TOs[] | TNoOs | TNoOs[];
     /** Browser */
-    b: TBrowser | TBrowser[],
+    b: TBrowser | TBrowser[] | TNoBrowser | TNoBrowser[];
     /** Language */
-    l: TLanguage | TLanguage[],
+    l: TLanguage | TLanguage[] | TNoLanguage | TNoLanguage[];
     /** Country */
-    c: TCountry | TCountry[],
+    c: TCountry | TCountry[] | TNoCountry | TNoCountry[];
 }

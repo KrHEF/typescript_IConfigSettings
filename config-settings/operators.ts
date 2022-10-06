@@ -2,15 +2,29 @@ import {
     merge as _merge,
 } from 'lodash';
 
-import { 
+import {
+    IConfig,
     IConfigSettings,
-    ISettings,
+    IConfigSetting, 
+    ISetting,
     TEnvironment,
+    TNoEnvironment,
     TPlatform,
+    TNoPlatform,
     TOs,
+    TNoOs,
     TBrowser,
+    TNoBrowser,
     TLanguage,
+    TNoLanguage,
     TCountry,
+    TNoCountry,
+    ENVIRONMENT_MAP,
+    PLATFORMS_MAP,
+    OSES_MAP,
+    BROWSERS_MAP,
+    LANGUAGES_MAP,
+    COUNTRIES_MAP,
 } from './types';
 
 function createSetting<T>(
@@ -62,10 +76,10 @@ export function setConfig<T>(
     return config;
 }
 
-export function getConfig<T>(
-    ...args: IConfigSettings<T>[]
-): IConfigSettings<T> {
-    return args.reduce((result, arg: IConfigSettings<T>) => {
+export function get<T>(
+    ...args: IConfigSetting<T>[]
+): IConfig<T> {
+    return args.reduce((result, arg: IConfigSetting<T>) => {
         return _merge(result, arg);
     }, {});
 }
