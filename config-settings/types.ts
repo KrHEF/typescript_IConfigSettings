@@ -104,9 +104,9 @@ export interface IConfigSettings<T> {
 }
 
 export interface IConfigSetting<T> {
-    setting: Partial<ISetting>;
-    weight?: number;
     config: Partial<T>;
+    setting: Partial<ISetting>;
+    weight: number;
 }
 
 export interface ISetting {

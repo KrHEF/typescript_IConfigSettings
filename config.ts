@@ -4,33 +4,12 @@ import {
 
 import {
     IConfig,
-    IConfigSettings,
-    IConfigSetting, 
-    ISetting,
-    TEnvironment,
-    TNoEnvironment,
-    TPlatform,
-    TNoPlatform,
-    TOs,
-    TNoOs,
-    TBrowser,
-    TNoBrowser,
-    TLanguage,
-    TNoLanguage,
-    TCountry,
-    TNoCountry,
-    ENVIRONMENT_MAP,
-    PLATFORMS_MAP,
-    OSES_MAP,
-    BROWSERS_MAP,
-    LANGUAGES_MAP,
-    COUNTRIES_MAP,
 } from "./config-settings";
-// import { 
-//     get,
-//     setConfig,
-//     addConfig,
-// } from './config-settings/operators';
+import { 
+    get,
+    set,
+    add,
+} from './config-settings/operators';
 
 interface IParams {
     param1: number;
@@ -38,189 +17,138 @@ interface IParams {
     param3: boolean;
 }
 
-export const param: IConfig<IParams> = {
-    
-}
+const param0: IConfig<IParams> = {
+    param1: 0,
+    param2: '0',
+    param3: false,
+    settings: [
+        {
+            config: {param1: 1},
+            setting: {},
+            weight: 0,
+        },
+        {
+            config: {param1: 2},
+            setting: {e: ['prod', 'test']},
+            weight: 1,
+        },
+        {
+            config: {param1: 3},
+            setting: {e: 'prod', p: 'mobile'},
+            weight: 2,
+        },
+        {
+            config: {param3: true},
+            setting: {p: '!mobile'},
+            weight: 1,
+        }
+    ]
+};
+const param00: IConfig<IParams> = get(
+    set<IParams>({param1: 0, param2: '0', param3: false}),
+    add<IParams>({param1: 1}, {}),
+    add<IParams>({param1: 2}, {e: ['prod', 'test']}),
+    add<IParams>({param1: 3}, {e: 'prod', p: 'mobile'}),
+    add<IParams>({param3: true}, {p: '!mobile'}),
+);
+console.log('param0 isEqual param00:', _isEqual(param0, param00));
 
-// export const param: IConfigSettings<IParams> = getConfig(
-//     setConfig({param1: 0}),
-//     addConfig({}, {param1: 1}),
-//     addConfig({e: ['prod', 'test']}, {param1: 2}),
-//     addConfig({e: 'prod', p: 'mobile'}, {param1: 3}),
-// );
 
-// const param1: ICountrySettings<IParams> = {
-//     param1: 1,
-//     rus: {
-//         param1: 2,
-//     },
-// };
-// const param11: IConfigSettings<IParams> = getConfig(
-//     setConfig({param1: 1}),
-//     addConfig({c: 'rus'}, {param1: 2}),
-// );
-// console.log('param1 isEqual param11:', _isEqual(param1, param11));
+const param1: IConfig<IParams> = {
+    param1: 1,
+    settings: [{
+        config: {param1: 2},
+        setting: {c: 'rus'},
+        weight: 2,
+    }],
+};
+const param11: IConfig<IParams> = get(
+    {param1: 1},
+    add({param1: 2}, {c: 'rus'}, 2),
+);
+console.log('param1 isEqual param11:', _isEqual(param1, param11));
 
-// const param2: ILanguageSettings<IParams> = {
-//     param2: '1',
-//     en: {
-//         param2: '3',
-//         rus: {
-//             param2: '4',
-//         },
-//     },
-// };
-// const param22: ILanguageSettings<IParams> = getConfig(
-//     setConfig({param2: '1'}),
-//     addConfig({l: 'en'}, {param2: '3'}),
-//     addConfig({l: 'en', c: 'rus'}, {param2: '4'}),
-// );
-// console.log('param2 isEqual param22:', _isEqual(param2, param22));
+const param2: IConfig<IParams> = {
+    param2: '1',
+    settings: [{
+        config: {param2: '3'},
+        setting: {l: 'en'},
+        weight: 1,
+    },{
+        config: {param2: '4'},
+        setting: {l: 'en', c: 'rus'},
+        weight: 2,
+    }],
+};
+const param22: IConfig<IParams> = get(
+    set({param2: '1'}),
+    add({param2: '3'}, {l: 'en'}),
+    add({param2: '4'}, {l: 'en', c: 'rus'}),
+);
+console.log('param2 isEqual param22:', _isEqual(param2, param22));
 
-// const param3: IBrowserSettings<IParams> = {
-//     param3: true,
-//     android: {
-//         param3: false,
-//         en: {
-//             param3: true,
-//             rus: {
-//                 param3: false,
-//             },
-//         },
-//     }
-// };
-// const param33: IBrowserSettings<IParams> = getConfig(
-//     setConfig({param3: true}),
-//     addConfig({b: 'android'}, {param3: false}),
-//     addConfig({b: 'android', l: 'en'}, {param3: true}),
-//     addConfig({b: 'android', l: 'en', c: 'rus'}, {param3: false}),
-// );
-// console.log('param3 isEqual param33:', _isEqual(param3, param33));
+const param3: IConfig<IParams> = {
+    param3: true,
+    settings: [{
+        config: {param3: false},
+        setting: {b: 'android'},
+        weight: 1,
+    },{
+        config: {param3: true},
+        setting: {b: 'android', l: 'en'},
+        weight: 2,
+    },{
+        config: {param3: false},
+        setting: {b: 'android', l: 'en', c: 'rus'},
+        weight: 3,
+    }],
+};
+const param33: IConfig<IParams> = get(
+    set({param3: true}),
+    add({param3: false}, {b: 'android'}),
+    add({param3: true}, {b: 'android', l: 'en'}),
+    add({param3: false}, {b: 'android', l: 'en', c: 'rus'}),
+);
+console.log('param3 isEqual param33:', _isEqual(param3, param33));
 
-// const param4: IOsSettings<IParams> = {
-//     param1: 1,
-//     Linux: {
-//         param1: 2,
-//         chrome: {
-//             param1: 3,
-//             ru: {
-//                 param1: 4,
-//                 rus: {
-//                     param1: 5,
-//                 },
-//             },
-//         },
-//     },
-// };
-// const param44: IConfigSettings<IParams> = getConfig(
-//     setConfig({param1: 1}),
-//     addConfig({o: 'Linux'}, {param1: 2}),
-//     addConfig({o: 'Linux', b: 'chrome'}, {param1: 3}),
-//     addConfig({o: 'Linux', b: 'chrome', l: 'ru'}, {param1: 4}),
-//     addConfig({o: 'Linux', b: 'chrome', l: 'ru', c: 'rus'}, {param1: 5}),
-// );
-// console.log('param4 isEqual param44:', _isEqual(param4, param44));
+export const param: IConfig<IParams> = get(
+    set({param1: 0}),
+    add({param1: 1}, {e: 'prod', }, ),
+    add({param1: 2}, {e: 'prod', p: 'desktop'}, ),
+    add({param1: 3}, {e: 'prod', p: 'desktop', o: 'windows'}, ),
+    add({param1: 4}, {e: 'prod', p: 'desktop', o: 'windows', b: 'chrome'}, ),
+    add({param1: 5}, {e: 'prod', p: 'desktop', o: 'windows', b: 'chrome', l: 'ru'}, ),
+    add({param1: 6}, {e: 'prod', p: 'desktop', o: 'linux', b: 'chrome', l: 'ru', c: 'rus'}, ),
 
-// const param5: IConfigSettings<IParams> = {
-//     param1: 0,
-//     prod: {
-//         param1: 1,
-//         desktop: {
-//             param1: 2,
-//             Windows: {
-//                 param1: 3, 
-//                 chrome: {
-//                     param1: 4, 
-//                     ru: {
-//                         param1: 5,
-//                         rus: {
-//                             param1: 6,
-//                         },
-//                     },
-//                 },
-//             },
-//         },
-//     },
-//     desktop: {
-//         param1: 7,
-//         Windows: {
-//             param1: 8, 
-//             chrome: {
-//                 param1: 9, 
-//                 ru: {
-//                     param1: 10,
-//                     rus: {
-//                         param1: 11,
-//                     },
-//                 },
-//             },
-//         },
-//     },
-//     Windows: {
-//         param1: 12, 
-//         chrome: {
-//             param1: 13, 
-//             ru: {
-//                 param1: 14,
-//                 rus: {
-//                     param1: 15,
-//                 },
-//             },
-//         },
-//     },
-//     chrome: {
-//         param1: 16, 
-//         ru: {
-//             param1: 17,
-//             rus: {
-//                 param1: 18,
-//             },
-//         },
-//     },
-//     ru: {
-//         param1: 19,
-//         rus: {
-//             param1: 20,
-//         },
-//     },
-//     rus: {
-//         param1: 21,
-//     },
-// };
-// const param55: IConfigSettings<IParams> = getConfig(
-//     setConfig({param1: 0}),
-//     addConfig({e: 'prod', }, {param1: 1}),
-//     addConfig({e: 'prod', p: 'desktop'}, {param1: 2}),
-//     addConfig({e: 'prod', p: 'desktop', o: 'Windows'}, {param1: 3}),
-//     addConfig({e: 'prod', p: 'desktop', o: 'Windows', b: 'chrome'}, {param1: 4}),
-//     addConfig({e: 'prod', p: 'desktop', o: 'Windows', b: 'chrome', l: 'ru'}, {param1: 5}),
-//     addConfig({e: 'prod', p: 'desktop', o: 'Windows', b: 'chrome', l: 'ru', c: 'rus'}, {param1: 6}),
+    add({param1: 7}, {p: 'desktop'}, ),
+    add({param1: 8}, {p: 'desktop', o: 'windows'}, ),
+    add({param1: 9}, {p: 'desktop', o: 'windows', b: 'chrome'}, ),
+    add({param1: 10}, {p: 'desktop', o: 'windows', b: 'chrome', l: 'ru'}, ),
+    add({param1: 11}, {p: 'desktop', o: 'windows', b: 'chrome', l: 'ru', c: 'rus'}, ),
 
-//     addConfig({p: 'desktop'}, {param1: 7}),
-//     addConfig({p: 'desktop', o: 'Windows'}, {param1: 8}),
-//     addConfig({p: 'desktop', o: 'Windows', b: 'chrome'}, {param1: 9}),
-//     addConfig({p: 'desktop', o: 'Windows', b: 'chrome', l: 'ru'}, {param1: 10}),
-//     addConfig({p: 'desktop', o: 'Windows', b: 'chrome', l: 'ru', c: 'rus'}, {param1: 11}),
+    add({param1: 12}, {o: 'windows'}, ),
+    add({param1: 13}, {o: 'windows', b: 'chrome'}, ),
+    add({param1: 14}, {o: 'windows', b: 'chrome', l: 'ru'}, ),
+    add({param1: 15}, {o: 'windows', b: 'chrome', l: 'ru', c: 'rus'}, ),
 
-//     addConfig({o: 'Windows'}, {param1: 12}),
-//     addConfig({o: 'Windows', b: 'chrome'}, {param1: 13}),
-//     addConfig({o: 'Windows', b: 'chrome', l: 'ru'}, {param1: 14}),
-//     addConfig({o: 'Windows', b: 'chrome', l: 'ru', c: 'rus'}, {param1: 15}),
+    add({param1: 16}, {b: 'chrome'}, ),
+    add({param1: 17}, {b: 'chrome', l: 'ru'}, ),
+    add({param1: 18}, {b: 'chrome', l: 'ru', c: 'rus'}, ),
 
-//     addConfig({b: 'chrome'}, {param1: 16}),
-//     addConfig({b: 'chrome', l: 'ru'}, {param1: 17}),
-//     addConfig({b: 'chrome', l: 'ru', c: 'rus'}, {param1: 18}),
+    add({param1: 19}, {l: 'ru'}, ),
+    add({param1: 20}, {l: 'ru', c: 'rus'}, ),
 
-//     addConfig({l: 'ru'}, {param1: 19}),
-//     addConfig({l: 'ru', c: 'rus'}, {param1: 20}),
+    add({param1: 21}, {c: 'rus'}, ),
+);
 
-//     addConfig({c: 'rus'}, {param1: 21}),
-// );
-// console.log('param5 isEqual param55:', _isEqual(param5, param55));
 
-// /**
-//  * Минусы:
-//  * - Сложная структура для чтения настроек (все настройки в куче при выборе, особенно в начале)
-//  * - Нужно учитывать вес настроек, (можно сделать как для CSS, чем выше сложенность, тем больше вес)
-//  * - Не хватает настроек кроме и для нескольких языков 
-//  */
+
+/**
+ * Плюсы:
+ * - Простая структура для чтения настроек
+ * - Есть настройки кроме и для нескольких значений (массив)
+ * 
+ * Минусы:
+ * - Нужно учитывать вес настроек, (как для CSS, чем выше вложенность, тем больше вес; также можно самому задавать вес)
+ * -  
+ */
