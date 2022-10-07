@@ -111,34 +111,34 @@ const param33: IConfig<IParams> = get(
 );
 console.log('param3 isEqual param33:', _isEqual(param3, param33));
 
-export const param: IConfig<IParams> = get(
-    set({param1: 0}),
-    add({param1: 1}, {e: 'prod', }, ),
-    add({param1: 2}, {e: 'prod', p: 'desktop'}, ),
-    add({param1: 3}, {e: 'prod', p: 'desktop', o: 'windows'}, ),
-    add({param1: 4}, {e: 'prod', p: 'desktop', o: 'windows', b: 'chrome'}, ),
-    add({param1: 5}, {e: 'prod', p: 'desktop', o: 'windows', b: 'chrome', l: 'ru'}, ),
-    add({param1: 6}, {e: 'prod', p: 'desktop', o: 'linux', b: 'chrome', l: 'ru', c: 'rus'}, ),
+export const param: IConfig<IParams> = get<IParams>(
+    set<IParams>({param1: 0}),
+    add<IParams>({param1: 1}, {e: 'prod', }, ),
+    add<IParams>({param1: 2}, {e: 'prod', p: 'desktop'}, ),
+    add<IParams>({param1: 3}, {e: 'prod', p: 'desktop', o: 'windows'}, ),
+    add<IParams>({param1: 4}, {e: 'prod', p: 'desktop', o: 'windows', b: 'chrome'}, ),
+    add<IParams>({param1: 5}, {e: 'prod', p: 'desktop', o: 'windows', b: 'chrome', l: 'ru'}, ),
+    add<IParams>({param1: 6}, {e: 'prod', p: 'desktop', o: 'linux', b: 'chrome', l: 'ru', c: 'rus'}, ),
 
-    add({param1: 7}, {p: 'desktop'}, ),
-    add({param1: 8}, {p: 'desktop', o: 'windows'}, ),
-    add({param1: 9}, {p: 'desktop', o: 'windows', b: 'chrome'}, ),
-    add({param1: 10}, {p: 'desktop', o: 'windows', b: 'chrome', l: 'ru'}, ),
-    add({param1: 11}, {p: 'desktop', o: 'windows', b: 'chrome', l: 'ru', c: 'rus'}, ),
+    add<IParams>({param1: 7}, {p: 'desktop'}, ),
+    add<IParams>({param1: 8}, {p: 'desktop', o: 'windows'}, ),
+    add<IParams>({param1: 9}, {p: 'desktop', o: 'windows', b: 'chrome'}, ),
+    add<IParams>({param1: 10}, {p: 'desktop', o: 'windows', b: 'chrome', l: 'ru'}, ),
+    add<IParams>({param1: 11}, {p: 'desktop', o: 'windows', b: 'chrome', l: 'ru', c: 'rus'}, ),
 
-    add({param1: 12}, {o: 'windows'}, ),
-    add({param1: 13}, {o: 'windows', b: 'chrome'}, ),
-    add({param1: 14}, {o: 'windows', b: 'chrome', l: 'ru'}, ),
-    add({param1: 15}, {o: 'windows', b: 'chrome', l: 'ru', c: 'rus'}, ),
+    add<IParams>({param1: 12}, {o: 'windows'}, ),
+    add<IParams>({param1: 13}, {o: 'windows', b: 'chrome'}, ),
+    add<IParams>({param1: 14}, {o: 'windows', b: 'chrome', l: 'ru'}, ),
+    add<IParams>({param1: 15}, {o: 'windows', b: 'chrome', l: 'ru', c: 'rus'}, ),
 
-    add({param1: 16}, {b: 'chrome'}, ),
-    add({param1: 17}, {b: 'chrome', l: 'ru'}, ),
-    add({param1: 18}, {b: 'chrome', l: 'ru', c: 'rus'}, ),
+    add<IParams>({param1: 16}, {b: 'chrome'}, ),
+    add<IParams>({param1: 17}, {b: 'chrome', l: 'ru'}, ),
+    add<IParams>({param1: 18}, {b: 'chrome', l: 'ru', c: 'rus'}, ),
 
-    add({param1: 19}, {l: 'ru'}, ),
-    add({param1: 20}, {l: 'ru', c: 'rus'}, ),
+    add<IParams>({param1: 19}, {l: 'ru'}, ),
+    add<IParams>({param1: 20}, {l: 'ru', c: 'rus'}, ),
 
-    add({param1: 21}, {c: 'rus'}, ),
+    add<IParams>({param1: 21}, {c: 'rus'}, ),
 );
 
 
