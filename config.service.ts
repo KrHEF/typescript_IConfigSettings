@@ -10,6 +10,7 @@ import {param} from './config';
 import { 
     IConfig,
     IConfigSetting,
+    TAthorization,
     TBrowser,
     TCountry,
     TEnvironment,
@@ -79,7 +80,11 @@ export class ConfigService {
         return 'rus';
     }
 
-    private passFilter<T>(setting: Partial<ISetting>): boolean {
+    protected getAuth(): TAthorization {
+        return 'user';
+    }
+
+    private passFilter<T>(setting: ISetting): boolean {
         return (
             !setting.e || this.passFilterSetting<TEnvironment, TNoEnvironment>(setting.e, this.getEnv())
         ) && (
@@ -92,6 +97,8 @@ export class ConfigService {
             !setting.l || this.passFilterSetting<TLanguage, TNoLanguage>(setting.l, this.getLang())
         ) && (
             !setting.c || this.passFilterSetting<TCountry, TNoCountry>(setting.c, this.getCountry())
+        ) && (
+            !setting.a || (setting.a === this.getAuth())
         );
     }
 

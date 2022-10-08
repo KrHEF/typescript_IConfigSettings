@@ -10,7 +10,16 @@ import {
 
 export function add<T>(
     config: Partial<T>,
-    setting: Partial<ISetting>,
+    setting: ISetting,
+): IConfigSetting<T>;
+export function add<T>(
+    config: Partial<T>,
+    setting: ISetting,
+    weight: number,
+): IConfigSetting<T>;
+export function add<T>(
+    config: Partial<T>,
+    setting: ISetting,
     weight?: number,
 ): IConfigSetting<T> {
     const result: IConfigSetting<T> = {

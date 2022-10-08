@@ -81,6 +81,12 @@ export const COUNTRIES_MAP = {
     est: 'Estonia',
 };
 
+export const AUTHORIZATION_MAP = {
+    user: 'Authorized',
+    guest: 'Not authorized',
+};
+
+export type TAthorization = keyof typeof AUTHORIZATION_MAP;
 export type TEnvironment = keyof typeof ENVIRONMENT_MAP;
 export type TPlatform = keyof typeof PLATFORMS_MAP;
 export type TOs =  Lowercase<keyof typeof OSES_MAP>;
@@ -111,15 +117,17 @@ export interface IConfigSetting<T> {
 
 export interface ISetting {
     /** Environment */
-    e: TEnvironment | TEnvironment[] | TNoEnvironment | TNoEnvironment[];
+    e?: TEnvironment | TEnvironment[] | TNoEnvironment | TNoEnvironment[];
     /** Platform */
-    p: TPlatform | TPlatform[] | TNoPlatform | TNoPlatform[];
+    p?: TPlatform | TPlatform[] | TNoPlatform | TNoPlatform[];
     /** OS */
-    o: TOs | TOs[] | TNoOs | TNoOs[];
+    o?: TOs | TOs[] | TNoOs | TNoOs[];
     /** Browser */
-    b: TBrowser | TBrowser[] | TNoBrowser | TNoBrowser[];
+    b?: TBrowser | TBrowser[] | TNoBrowser | TNoBrowser[];
     /** Language */
-    l: TLanguage | TLanguage[] | TNoLanguage | TNoLanguage[];
+    l?: TLanguage | TLanguage[] | TNoLanguage | TNoLanguage[];
     /** Country */
-    c: TCountry | TCountry[] | TNoCountry | TNoCountry[];
+    c?: TCountry | TCountry[] | TNoCountry | TNoCountry[];
+    /** Authintificate */
+    a?: TAthorization;
 }

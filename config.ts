@@ -118,7 +118,7 @@ export const param: IConfig<IParams> = get<IParams>(
     add<IParams>({param1: 3}, {e: 'prod', p: 'desktop', o: 'windows'}, ),
     add<IParams>({param1: 4}, {e: 'prod', p: 'desktop', o: 'windows', b: 'chrome'}, ),
     add<IParams>({param1: 5}, {e: 'prod', p: 'desktop', o: 'windows', b: 'chrome', l: 'ru'}, ),
-    add<IParams>({param1: 6}, {e: 'prod', p: 'desktop', o: 'linux', b: 'chrome', l: 'ru', c: 'rus'}, ),
+    add<IParams>({param1: 6}, {e: 'prod', p: 'desktop', o: 'linux', b: 'chrome', l: 'ru', c: 'rus', a: 'guest'}, ),
 
     add<IParams>({param1: 7}, {p: 'desktop'}, ),
     add<IParams>({param1: 8}, {p: 'desktop', o: 'windows'}, ),
