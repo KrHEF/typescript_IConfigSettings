@@ -28,7 +28,7 @@ import {
 
 export class ConfigService {
 
-    protected static instance: ConfigService = null;
+    protected static instance: ConfigService | null = null;
 
     protected parser: Bowser.Parser.Parser = Bowser.getParser(window.navigator.userAgent);
 
@@ -43,12 +43,12 @@ export class ConfigService {
     }
 
     public getConfig<T>(defaultParams: T, name: string): T {
-        const result: T = {...defaultParams}; 
+        const result: T & IConfig<T> = {...defaultParams}; 
         const params: IConfig<T> = {...param} as IConfig<T>;
         
         _merge(result, params);
 
-        if (!params.settings) { return result; }
+        if (!result.settings) { return result; }
         delete result['settings'];
 
         return _orderBy(params.settings, ['weight'], ['asc'])

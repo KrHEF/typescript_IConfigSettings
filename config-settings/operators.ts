@@ -11,26 +11,13 @@ import {
 export function add<T>(
     config: Partial<T>,
     setting: ISetting,
-): IConfigSetting<T>;
-export function add<T>(
-    config: Partial<T>,
-    setting: ISetting,
-    weight: number,
-): IConfigSetting<T>;
-export function add<T>(
-    config: Partial<T>,
-    setting: ISetting,
     weight?: number,
 ): IConfigSetting<T> {
-    const result: IConfigSetting<T> = {
+    return {
         config,
         setting,
-        weight,
+        weight: weight ?? _keys(setting).length,
     };
-
-    result.weight ??= _keys(setting).length;
-
-    return result;
 }
 
 export function set<T>(
@@ -43,9 +30,11 @@ export function get<T>(
     config: Partial<T>,
     ...settings: IConfigSetting<T>[]
 ): IConfig<T> {
-    if (!settings.length) { return {...config}; }
-
     const result: IConfig<T> = {...config};
+
+    if (!settings.length) { return result; }
+
     result.settings = settings;
+
     return result;
 }
